@@ -22,3 +22,9 @@ $ docker-compose up -d --build
 ```
 
 You can open the app in the browser at `localhost:8009`
+
+To stop the container and remove associated volumes, run the command:
+
+```
+$ docker-compose down -v
+```
