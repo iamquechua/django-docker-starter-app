@@ -122,3 +122,7 @@ $ heroku run python manage.py migrate --app <app_name>
 | Build and image and start a container (in detached mode) | `$ docker-compose up -d --build`  |
 | Inspect a volume | `$ docker volume inspect django-backend-starter_postgres_data`  |
 | Run migrations | `$ docker-compose exec backend python manage.py migrate`  |
+
+# Test-Driven Development with Django, Django REST Framework, and Docker
+
+[![pipeline status](https://gitlab.com/54startups/django-backend-starter/badges/master/pipeline.svg)](https://gitlab.com/54startups/django-backend-starter/commits/master)
