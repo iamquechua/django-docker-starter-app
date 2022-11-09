@@ -33,11 +33,16 @@ $ docker-compose down -v
 
 * [Sign up](https://signup.heroku.com/) for a Heroku account (if you don’t already have one)
 * Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) (if you haven't already done so)
-* Create a new app: `heroku create`
+
+
+Create a new app:
+```
+$ heroku create
+```
 
 Log in to the [Heroku Container Registry](https://devcenter.heroku.com/articles/container-registry-and-runtime):
 ```
-$ heroku create
+$ heroku container:login
 ```
 
 Provision a new Postgres database with the [hobby-dev](https://devcenter.heroku.com/articles/heroku-postgres-plans#hobby-tier) plan:
@@ -55,10 +60,7 @@ Update the `DJANGO_ALLOWED_HOSTS` environment variable in _Dockerfile.prod_:
 ```
 ENV DJANGO_ALLOWED_HOSTS .herokuapp.com
 ```
-Build the image again:
-```
-$ docker build -f Dockerfile.prod -t registry.heroku.com/<app_name>/web .
-```
+
 Push the image to the registry:
 ```
 $ docker push registry.heroku.com/<app_name>/web:latest
