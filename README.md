@@ -44,6 +44,18 @@ $ docker-compose down -v
 |--|--|
 | Connect to a specific database | `$ docker-compose exec backend-db psql --username=backend --dbname=backend_dev`  |
 
+###  Code Quality Commands:
+
+| Tasks | Commands |
+|--|--|
+| Run Flake8 | `$ $ docker-compose exec movies flake8 .`  |
+| Format code with Black | `$ docker-compose exec movies black --exclude=migrations .`  |
+| Check if there is code to format with Black | `$ docker-compose exec movies black --check --exclude=migrations .`  |
+| Show the difference before and after formatting with Black | `$ docker-compose exec movies black --diff --exclude=migrations .`  |
+| Sort imports with isort | `$ docker-compose exec movies isort .`  |
+| Check if there are imports that need sorting with Black | `$ docker-compose exec movies isort . --check-only`  |
+| Show the difference before and after sorting imports with isort | `$ docker-compose exec movies isort . --diff`  |
+
 ###  Common Docker Commands:
 
 | Tasks | Commands |
