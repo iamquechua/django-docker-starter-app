@@ -74,6 +74,10 @@ $ heroku container:release web --app <app_name>
 
 This will run the container. You should be able to view the app at `https://<app_name>.herokuapp.com/`
 
+> If you see an "Exec format error" and are using an Apple M1 or M2 chip, you may need to use Docker  `buildx`  for builds. For example:
+
+>`$ docker buildx build --platform linux/amd64 -f Dockerfile.prod -t registry.heroku.com/<app_name>/web .`
+
 Apply the migrations:
 ```
 $ heroku run python manage.py migrate --app <app_name>
