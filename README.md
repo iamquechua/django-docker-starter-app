@@ -31,9 +31,9 @@ $ docker-compose down -v
 
 ## Deployment
 
-* [Sign up](https://signup.heroku.com/) for a Heroku account (if you don’t already have one)
-* Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) (if you haven't already done so)
+[Sign up](https://signup.heroku.com/) for a Heroku account (if you don’t already have one)
 
+Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) (if you haven't already done so)
 
 Create a new app:
 ```
@@ -49,6 +49,12 @@ Provision a new Postgres database with the [hobby-dev](https://devcenter.heroku.
 ```
 $ heroku addons:create heroku-postgresql:hobby-dev --app <app_name>
 ```
+
+Update the `DJANGO_ALLOWED_HOSTS` environment variable in _Dockerfile.prod_:
+```
+ENV DJANGO_ALLOWED_HOSTS .herokuapp.com
+```
+
 Now, we need to build the production Docker image and tag it with the following format `registry.heroku.com/<app>/<process-type>`:
 
 ```
@@ -56,20 +62,21 @@ $ cd app
 $ docker build -f Dockerfile.prod -t registry.heroku.com/<app_name>/web .
 ```
 
-Update the `DJANGO_ALLOWED_HOSTS` environment variable in _Dockerfile.prod_:
-```
-ENV DJANGO_ALLOWED_HOSTS .herokuapp.com
-```
-
 Push the image to the registry:
 ```
 $ docker push registry.heroku.com/<app_name>/web:latest
 ```
+
 Release the image:
 ```
 $ heroku container:release web --app <app_name>
 ```
+
 This will run the container. You should be able to view the app at `https://<app_name>.herokuapp.com/`
+
+> If you see an "Exec format error" and are using an Apple M1 or M2 chip, you may need to use Docker  `buildx`  for builds. For example:
+
+>`$ docker buildx build --platform linux/amd64 -f Dockerfile.prod -t registry.heroku.com/<app_name>/web .`
 
 Apply the migrations:
 ```
