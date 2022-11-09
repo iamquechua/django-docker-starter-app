@@ -29,6 +29,51 @@ To stop the container and remove associated volumes, run the command:
 $ docker-compose down -v
 ```
 
+## Deployment
+
+* [Sign up](https://signup.heroku.com/) for a Heroku account (if you don’t already have one)
+* Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) (if you haven't already done so)
+* Create a new app: `heroku create`
+
+Log in to the [Heroku Container Registry](https://devcenter.heroku.com/articles/container-registry-and-runtime):
+```
+$ heroku create
+```
+
+Provision a new Postgres database with the [hobby-dev](https://devcenter.heroku.com/articles/heroku-postgres-plans#hobby-tier) plan:
+```
+$ heroku addons:create heroku-postgresql:hobby-dev --app <app_name>
+```
+Now, we need to build the production Docker image and tag it with the following format `registry.heroku.com/<app>/<process-type>`:
+
+```
+$ cd app
+$ docker build -f Dockerfile.prod -t registry.heroku.com/<app_name>/web .
+```
+
+Update the `DJANGO_ALLOWED_HOSTS` environment variable in _Dockerfile.prod_:
+```
+ENV DJANGO_ALLOWED_HOSTS .herokuapp.com
+```
+Build the image again:
+```
+$ docker build -f Dockerfile.prod -t registry.heroku.com/<app_name>/web .
+```
+Push the image to the registry:
+```
+$ docker push registry.heroku.com/<app_name>/web:latest
+```
+Release the image:
+```
+$ heroku container:release web --app <app_name>
+```
+This will run the container. You should be able to view the app at `https://<app_name>.herokuapp.com/`
+
+Apply the migrations:
+```
+$ heroku run python manage.py migrate --app <app_name>
+```
+
 ## Useful Commands:
 
 ### Django Commands with Docker Compose:
