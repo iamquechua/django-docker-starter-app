@@ -72,7 +72,9 @@ Release the image:
 $ heroku container:release web --app <app_name>
 ```
 
-This will run the container. You should be able to view the app at `https://<app_name>.herokuapp.com/`
+This will run the container. You should be able to view the app at `https://<app_name>.herokuapp.com/admin/`
+
+Note: You will get a `404` error if you go to `https://<app_name>.herokuapp.com/`
 
 > If you see an "Exec format error" and are using an Apple M1 or M2 chip, you may need to use Docker  `buildx`  for builds. For example:
 
