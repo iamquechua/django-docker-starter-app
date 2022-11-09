@@ -28,3 +28,29 @@ To stop the container and remove associated volumes, run the command:
 ```
 $ docker-compose down -v
 ```
+
+## Useful Commands:
+
+### Django Commands with Docker Compose:
+
+| Tasks | Commands |
+|--|--|
+| Create migrations | `$ docker-compose exec backend python manage.py makemigrations`  |
+| Run migrations | `$ docker-compose exec backend python manage.py migrate`  |
+
+###  PostgreSQL Commands with Docker Compose:
+
+| Tasks | Commands |
+|--|--|
+| Connect to a specific database | `$ docker-compose exec backend-db psql --username=backend --dbname=backend_dev`  |
+
+###  Common Docker Commands:
+
+| Tasks | Commands |
+|--|--|
+| Build an image | `$ docker-compose build`  |
+| Start a container | `$ docker-compose up`  |
+| Start a container (in detached mode) | `$ docker-compose up -d`  |
+| Build and image and start a container (in detached mode) | `$ docker-compose up -d --build`  |
+| Inspect a volume | `$ docker volume inspect django-backend-starter_postgres_data`  |
+| Run migrations | `$ docker-compose exec backend python manage.py migrate`  |
